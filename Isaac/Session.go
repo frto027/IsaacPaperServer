@@ -44,6 +44,7 @@ type SessionData struct {
 	name          string
 	currentLobby  LobbyID
 	connSendMutex sync.Mutex
+	langId        Isaacpb.RequestLogin_Lang
 
 	lastWaitToken string
 }
@@ -299,6 +300,8 @@ func (s *SessionData) HandlePackage(header *Isaacpb.RequestHeader, body []byte) 
 			}
 		}
 		userAccessMutex.Unlock()
+
+		s.langId = msg.GetLangCode()
 
 		if userBlocked {
 			caption := "服务器已阻止您的连接"
