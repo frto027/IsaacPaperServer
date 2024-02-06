@@ -336,8 +336,13 @@ func (s *SessionData) HandlePackage(header *Isaacpb.RequestHeader, body []byte) 
 		sessionsMutex.Unlock()
 
 		if true {
-			caption := "欢迎来到“以撒的纸电话”"
-			hint := "欢迎来到这个服务器。\n本服务器程序由Frto027制作。\n您的一切行为均对管理员可见，请谨慎行动，否则会被管理员封禁。"
+			caption := "Welcome to Isaac Paper Phone"
+			hint := "Welcome to this server.\n  - a friendly message from admin."
+
+			if s.langId == Isaacpb.RequestLogin_ZH {
+				caption = "欢迎来到“以撒的纸电话”"
+				hint = "欢迎来到这个服务器。\n本服务器程序由Frto027制作。\n您的一切行为均对管理员可见，请勿交流敏感内容，否则会被管理员封禁。"
+			}
 			s.SendPackage(Isaacpb.ResponseHeader_ServerPublicMessage, 0, &Isaacpb.ResponseServerPublicMessage{
 				Type:    Isaacpb.ResponseServerPublicMessage_DisplayStringAndContinue,
 				Caption: &caption,

@@ -74,6 +74,9 @@ func ServeUdp(addr string) {
 		log.Fatal(err)
 	}
 	conn, err = net.ListenUDP("udp", udpAddr)
+	if err != nil {
+		log.Fatal(err)
+	}
 	for {
 		buff := make([]byte, 1024*1024)
 		n, addr, err := conn.ReadFromUDP(buff)
