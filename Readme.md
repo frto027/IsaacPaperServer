@@ -35,9 +35,9 @@ set GOOS=linux
 - [x] chat support
 - [x] lobby list support
 - [x] admin cli
-- [x] play game via server TCP stream. Avaliable but not used.
+- [x] (not used)play game via server TCP stream
 - [x] play game via UDP p2p package
-- [ ] play game via UDP package, when p2p unavailable. *not tested*
+- [x] play game via UDP package, when p2p unavailable
 - [ ] reconnect after disconnect
 
 # License
