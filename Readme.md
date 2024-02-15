@@ -8,6 +8,8 @@ Designed for the game `The Binding of Isaac: Repentance`
 
 It is designed to solve the bad network problem for some special case.
 
+[Download here](https://github.com/frto027/IsaacPaperServer/releases)
+
 # Version
 
 The version follows format `X.Y.Z`
