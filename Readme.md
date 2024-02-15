@@ -8,6 +8,13 @@ Designed for the game `The Binding of Isaac: Repentance`
 
 It is designed to solve the bad network problem for some special case.
 
+# Version
+
+The version follows format `X.Y.Z`
+- `X` is major version.
+- `Y` is minor version as well as Protocol version. It must be same with client's protocol version.
+- `Z` is patch version that increase with the development of the current software.
+
 # Build Instruction
 
 ```shell

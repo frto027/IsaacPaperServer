@@ -32,8 +32,6 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-const PROTOCOL_VER = 1
-
 type SteamID uint64
 
 type SessionData struct {
