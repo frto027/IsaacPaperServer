@@ -1,0 +1,63 @@
+# This workflow will build a golang project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
+
+name: Go
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.21.4'
+
+    - name: Build Windows Image
+      run: |
+        GOOS=windows go build -C Server -o ../build-win/server.exe
+        GOOS=windows go build -C Cli -o ../build-win/cli.exe
+
+    - name: Build Linux Amd64 Image
+      run: |
+        GOOS=linux GOARCH=amd64 go build -C Server -o ../build-linux-amd64/server
+        GOOS=linux GOARCH=amd64 go build -C Cli -o ../build-linux-amd64/cli
+        
+    - name: Build Linux 386 Image
+      run: |
+        GOOS=linux GOARCH=386 go build -C Server -o ../build-linux-386/server
+        GOOS=linux GOARCH=386 go build -C Cli -o ../build-linux-386/cli
+
+    - name: Build Linux arm64 Image
+      run: |
+        GOOS=linux GOARCH=arm64 go build -C Server -o ../build-linux-arm64/server
+        GOOS=linux GOARCH=arm64 go build -C Cli -o ../build-linux-arm64/cli
+
+    - name: Get Tag Name
+      id: tag_name
+      run: |
+        echo TAG_NAME=v`go run Version/Version.go` >> "$GITHUB_OUTPUT"
+    - name: Compress files
+      run: |
+        zip build-win.zip build-win/*
+        tar zcvf build-linux-amd64.tgz build-linux-amd64
+        tar zcvf build-linux-386.tgz build-linux-386
+        tar zcvf build-linux-arm64.tgz build-linux-arm64
+
+    - name: Update Release
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: "build-*.zip,build-*.tgz"
+        body: Version ${{ steps.tag_name.outputs.TAG_NAME }}
+        commit: master
+        tag: ${{ steps.tag_name.outputs.TAG_NAME }}

@@ -13,8 +13,6 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
     - uses: actions/checkout@v4
 
@@ -66,22 +64,3 @@ jobs:
         name: build-linux-arm64
         path: ./build-linux-arm64
         overwrite: true
-
-    - name: Get Tag Name
-      id: tag_name
-      run: |
-        echo TAG_NAME=v`go run Version/Version.go` >> "$GITHUB_OUTPUT"
-    - name: Compress files
-      run: |
-        tar zcvf build-win.tgz build-win
-        tar zcvf build-linux-amd64.tgz build-linux-amd64
-        tar zcvf build-linux-386.tgz build-linux-386
-        tar zcvf build-linux-arm64.tgz build-linux-arm64
-
-    - name: Update Release
-      uses: ncipollo/release-action@v1
-      with:
-        artifacts: "build-*.tgz"
-        body: Version ${{ steps.tag_name.outputs.TAG_NAME }}
-        commit: master
-        tag: ${{ steps.tag_name.outputs.TAG_NAME }}
