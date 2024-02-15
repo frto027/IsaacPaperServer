@@ -2,6 +2,9 @@
 
 [中文介绍](ReadmeZH.md)
 
+[![Release](https://github.com/frto027/IsaacPaperServer/actions/workflows/release.yml/badge.svg)](https://github.com/frto027/IsaacPaperServer/actions/workflows/release.yml) [![Build](https://github.com/frto027/IsaacPaperServer/actions/workflows/build.yml/badge.svg)](https://github.com/frto027/IsaacPaperServer/actions/workflows/build.yml)
+
+
 IsaacPaperCupPhone is a program that enables you to run your own game server.
 
 Designed for the game `The Binding of Isaac: Repentance`

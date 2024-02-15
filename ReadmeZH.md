@@ -1,5 +1,7 @@
 # 以撒的纸杯服务
 
+[![Release](https://github.com/frto027/IsaacPaperServer/actions/workflows/release.yml/badge.svg)](https://github.com/frto027/IsaacPaperServer/actions/workflows/release.yml) [![Build](https://github.com/frto027/IsaacPaperServer/actions/workflows/build.yml/badge.svg)](https://github.com/frto027/IsaacPaperServer/actions/workflows/build.yml)
+
 《以撒的纸杯服务》是《以撒的纸电话》的服务器软件，现以开源的方式进行分发。为《以撒的结合：忏悔》设计，需配合《以撒的纸电话》插件使用。
 
 [点我下载](https://github.com/frto027/IsaacPaperServer/releases)
