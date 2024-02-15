@@ -19,16 +19,28 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
-        go-version: '1.20'
+        go-version: '1.21.4'
 
     - name: Build Windows Image
       run: |
         mkdir build
         GOOS=windows go build -C Server -o ../build-win/server.exe
         GOOS=windows go build -C Cli -o ../build-win/cli.exe
+    - name: Upload Windows Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-win
+        path: ./build-win
+        overwrite: true
 
     - name: Build Linux Image
       run: |
         mkdir build
         GOOS=linux go build -C Server -o ../build-linux/server
         GOOS=linux go build -C Cli -o ../build-linux/cli
+    - name: Upload Linux Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-linux
+        path: ./build-linux
+        overwrite: true
