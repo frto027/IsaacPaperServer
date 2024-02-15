@@ -32,6 +32,10 @@ func main() {
 		fmt.Println("usage: ", os.Args[0], " <admin password>")
 		os.Exit(1)
 	}
+
+	log.Print("Server protocol version: ", Isaac.PROTOCOL_VER)
+	log.Print("Server started, listening tcp port 8555 and udp port 8554...")
+
 	Isaac.LOGIN_PRIVILEDGE = os.Args[1]
 
 	//Isaac.ServeForever("tcp4", "192.168.102.1:8555")
