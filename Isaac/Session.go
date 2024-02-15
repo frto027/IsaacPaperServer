@@ -367,6 +367,7 @@ func (s *SessionData) HandlePackage(header *Isaacpb.RequestHeader, body []byte) 
 		DefaultFastChatMessagesMutex.Unlock()
 
 		log.Print("user ", s.name, "(", s.steamId, ") is login!")
+		log.Printf("user %s client crc value is %08x", s.name, msg.GetGameImageCrc())
 	case Isaacpb.RequestHeader_LobbyList:
 		msg := Isaacpb.RequestLobbyList{}
 		if err := proto.Unmarshal(body, &msg); err != nil {
