@@ -23,7 +23,6 @@ jobs:
 
     - name: Build Windows Image
       run: |
-        mkdir build
         GOOS=windows go build -C Server -o ../build-win/server.exe
         GOOS=windows go build -C Cli -o ../build-win/cli.exe
     - name: Upload Windows Artifact
@@ -33,14 +32,35 @@ jobs:
         path: ./build-win
         overwrite: true
 
-    - name: Build Linux Image
+    - name: Build Linux Amd64 Image
       run: |
-        mkdir build
-        GOOS=linux go build -C Server -o ../build-linux/server
-        GOOS=linux go build -C Cli -o ../build-linux/cli
+        GOOS=linux GOARCH=amd64 go build -C Server -o ../build-linux-amd64/server
+        GOOS=linux GOARCH=amd64 go build -C Cli -o ../build-linux-amd64/cli
     - name: Upload Linux Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: build-linux
-        path: ./build-linux
+        name: build-linux-amd64
+        path: ./build-linux-amd64
+        overwrite: true
+        
+    - name: Build Linux 386 Image
+      run: |
+        GOOS=linux GOARCH=386 go build -C Server -o ../build-linux-386/server
+        GOOS=linux GOARCH=386 go build -C Cli -o ../build-linux-386/cli
+    - name: Upload Linux Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-linux-386
+        path: ./build-linux-386
+        overwrite: true
+
+    - name: Build Linux arm64 Image
+      run: |
+        GOOS=linux GOARCH=arm64 go build -C Server -o ../build-linux-arm64/server
+        GOOS=linux GOARCH=arm64 go build -C Cli -o ../build-linux-arm64/cli
+    - name: Upload Linux Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-linux-arm64
+        path: ./build-linux-arm64
         overwrite: true
