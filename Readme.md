@@ -5,11 +5,11 @@
 [![Release](https://github.com/frto027/IsaacPaperServer/actions/workflows/release.yml/badge.svg)](https://github.com/frto027/IsaacPaperServer/actions/workflows/release.yml) [![Build](https://github.com/frto027/IsaacPaperServer/actions/workflows/build.yml/badge.svg)](https://github.com/frto027/IsaacPaperServer/actions/workflows/build.yml)
 
 
-IsaacPaperCupPhone is a program that enables you to run your own game server.
+IsaacPaperCupPhone is a program that enables you to run your own game server, you need a [client plugin](https://github.com/frto027/IsaacPaperCupPhoneRel) to connect the server.
 
 Designed for the game `The Binding of Isaac: Repentance`
 
-It is designed to solve the bad network problem for some special case.
+It is a toy that solve the bad network problem for some special case.
 
 [Download here](https://github.com/frto027/IsaacPaperServer/releases)
 
