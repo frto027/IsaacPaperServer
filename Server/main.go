@@ -31,6 +31,7 @@ import (
 var AdminPswd = flag.String("p", "", "REQUIRED, server admin password")
 var TcpAddr = flag.String("t", "0.0.0.0:8555", "server tcp4 address/port, as well as admin port")
 var UdpAddr = flag.String("u", "0.0.0.0:8554", "server udp address/port, for p2p gameplay")
+var LogFile = flag.String("l", "-", "log file, \"-\" means stderr")
 
 func PrintUsage(_ string) error {
 	_, _ = fmt.Fprintln(flag.CommandLine.Output(), "Command line argument:")
@@ -47,6 +48,16 @@ func main() {
 	if *AdminPswd == "" {
 		_, _ = fmt.Fprintln(flag.CommandLine.Output(), "Can't start server: Missing password argument.")
 		_ = PrintUsage("")
+	}
+
+	if *LogFile == "-" {
+		log.SetOutput(os.Stderr)
+	} else {
+		file, err := os.OpenFile(*LogFile, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0200)
+		if err != nil {
+			log.Fatal(err)
+		}
+		log.SetOutput(file)
 	}
 
 	log.Print("Server protocol version: ", Isaac.PROTOCOL_VER)
