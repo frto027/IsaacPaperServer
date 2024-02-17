@@ -20,6 +20,7 @@ package main
 
 import (
 	"IsaacPaperServer/Isaac"
+	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -27,22 +28,36 @@ import (
 	"time"
 )
 
+var AdminPswd = flag.String("p", "", "REQUIRED, server admin password")
+var TcpAddr = flag.String("t", "0.0.0.0:8555", "server tcp4 address/port, as well as admin port")
+var UdpAddr = flag.String("u", "0.0.0.0:8554", "server udp address/port, for p2p gameplay")
+
+func PrintUsage(_ string) error {
+	_, _ = fmt.Fprintln(flag.CommandLine.Output(), "Command line argument:")
+	flag.PrintDefaults()
+	_, _ = fmt.Fprintf(flag.CommandLine.Output(), "Usage example:\n\t%s -p admin_password\n", os.Args[0])
+	os.Exit(1)
+	return nil
+}
+
 func main() {
-	if len(os.Args) != 2 {
-		fmt.Println("usage: ", os.Args[0], " <admin password>")
-		os.Exit(1)
+	flag.BoolFunc("h", "print the help message", PrintUsage)
+	flag.Parse()
+
+	if *AdminPswd == "" {
+		_, _ = fmt.Fprintln(flag.CommandLine.Output(), "Can't start server: Missing password argument.")
+		_ = PrintUsage("")
 	}
 
 	log.Print("Server protocol version: ", Isaac.PROTOCOL_VER)
-	log.Print("Server started, listening tcp port 8555 and udp port 8554...")
+	log.Printf("Server started, listening tcp %s and udp %s...", *TcpAddr, *UdpAddr)
 
-	Isaac.LOGIN_PRIVILEDGE = os.Args[1]
+	Isaac.LOGIN_PRIVILEDGE = *AdminPswd
 
-	//Isaac.ServeForever("tcp4", "192.168.102.1:8555")
 	if re, err := regexp.Compile("^$"); err == nil {
 		Isaac.TextFilterRe = re
 	}
-	go Isaac.ServeUdp("0.0.0.0:8554")
+	go Isaac.ServeUdp(*UdpAddr)
 
 	go func() {
 		for {
@@ -54,5 +69,5 @@ func main() {
 		}
 	}()
 
-	Isaac.ServeForever("tcp4", "0.0.0.0:8555")
+	Isaac.ServeForever("tcp4", *TcpAddr)
 }
