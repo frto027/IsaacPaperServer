@@ -4,4 +4,4 @@ package Isaac
 
 const MAJOR_VER = 1
 const PROTOCOL_VER = 1
-const PATCH_VER = 3
+const PATCH_VER = 4
