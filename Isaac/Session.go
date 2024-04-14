@@ -402,6 +402,7 @@ func (s *SessionData) HandlePackage(header *Isaacpb.RequestHeader, body []byte) 
 
 		lobby.name = filterStr(msg.Name)
 		lobby.password = msg.Password
+		lobby.enableP2P = msg.EnableP2P
 
 		_, _ = lobby.AddUser(s.steamId)
 		lobby.owner = s.steamId
@@ -422,7 +423,7 @@ func (s *SessionData) HandlePackage(header *Isaacpb.RequestHeader, body []byte) 
 		if lobby.password == nil {
 			isLocked = ""
 		}
-		log.Print(isLocked, "lobby ", lobby.name, "(", lobby.id, ") is created by steam user ", s.name, "(", s.steamId, ")")
+		log.Print(isLocked, "lobby ", lobby.name, "(", lobby.id, ") is created by steam user ", s.name, "(", s.steamId, ")", " p2p:", lobby.enableP2P)
 		lobbiesMutex.Lock()
 		lobbies[lobby.id] = &lobby
 		lobbiesMutex.Unlock()

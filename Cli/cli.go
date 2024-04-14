@@ -94,6 +94,7 @@ func TypeAndSend(conn net.Conn) {
 func main() {
 	if len(os.Args) != 3 {
 		fmt.Println("usage: ", os.Args[0], " <server:port> <admin password>")
+		fmt.Println("\texample: ", os.Args[0], "127.0.0.1:8555 123456")
 		os.Exit(1)
 	}
 	//address := "isaacpcp.0xf7.top:8555"

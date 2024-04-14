@@ -43,8 +43,9 @@ type LobbyData struct {
 
 	udpAddresses [4]netip.AddrPort
 
-	name     string
-	password *string
+	name      string
+	password  *string
+	enableP2P bool
 
 	createTime time.Time
 }
@@ -151,7 +152,7 @@ func (L *LobbyData) ToProtobufLobbyInfoWithUserData() *Isaacpb.LobbyInfo {
 			continue
 		}
 
-		if L.udpAddresses[i].IsValid() {
+		if L.enableP2P && L.udpAddresses[i].IsValid() {
 			info.UsersDatas[i].UdpIpAddr = L.udpAddresses[i].Addr().AsSlice()
 			info.UsersDatas[i].UdpPort = int32(L.udpAddresses[i].Port())
 		} else {

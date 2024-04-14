@@ -175,11 +175,15 @@ kick  [steamid] [reason]
 		lobbiesMutex.Lock()
 		i := 0
 		for _, L := range lobbies {
-			PASSWORD := "no password"
+			PASSWORD := "no-password"
 			if L.password != nil {
-				PASSWORD = "PASSWORD: " + *L.password
+				PASSWORD = "PASSWORD: '" + *L.password + "'"
 			}
-			_, _ = A.writer.WriteString(fmt.Sprintf("% 4d  ID:%d NAME: %s %s", i, L.id, L.name, PASSWORD))
+			P2P := "p2p-disable"
+			if L.enableP2P {
+				P2P = "p2p-enable"
+			}
+			_, _ = A.writer.WriteString(fmt.Sprintf("% 4d  ID:%d NAME: '%s' %s %s", i, L.id, L.name, PASSWORD, P2P))
 			i += 1
 			_, _ = A.writer.WriteString("(")
 			for j := 0; j < 4; j++ {
